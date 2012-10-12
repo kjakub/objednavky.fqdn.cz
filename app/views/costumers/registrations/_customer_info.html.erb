@@ -1,0 +1,31 @@
+<br />
+<hr>
+<div><%= f.label :billing_street %><br />
+<%= f.text_field :billing_street %></div>
+
+<div><%= f.label :billing_zip %><br />
+<%= f.text_field :billing_zip, :maxlength => 5 %></div>
+
+<div><%= f.label :billing_city %><br />
+<%= f.text_field :billing_city %></div>
+
+<div><%= f.label :billing_country %><br />
+<%= f.text_field :billing_country %></div>
+
+<div><%= f.label :delivery_same %>
+<%= f.check_box :delivery_same %></div>
+<br />
+<hr>
+<div><%= f.label :delivery_street %><br />
+<%= f.text_field :delivery_street %></div>
+
+<div><%= f.label :delivery_zip %><br />
+<%= f.text_field :delivery_zip, :maxlength => 5 %></div>
+
+<div><%= f.label :delivery_city %><br />
+<%= f.text_field :delivery_city %></div>
+
+<div><%= f.label :delivery_country %><br />
+<%= f.text_field :delivery_country %></div>
+
+
