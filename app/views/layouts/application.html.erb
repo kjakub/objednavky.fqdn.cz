@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hanes</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="container">
+    <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+    <%- end -%>
+
+    <p><%= link_to 'Home', root_path %></p>
+
+    <% if costumer_signed_in? -%>
+      <div id="user_login_box" style="float:right">
+        <%= current_costumer.email %> |
+        <!-- <%= link_to 'New order', new_costumer_order_path(current_costumer) %> | -->
+        <%= link_to 'My orders', costumer_orders_path(current_costumer) %> |
+        <%= link_to 'My info', edit_costumer_registration_path %> |
+        <%= link_to 'Sign out', destroy_costumer_session_path, :method => :delete %>
+      </div>
+    <% end -%>
+    <% if admin_signed_in? -%>
+      <div id="admin_login_box" style="float:left">
+        <%= current_admin.email %> |
+        <%= link_to 'New order', new_admin_order_path(current_admin) %> |
+        <%= link_to 'All orders', all_orders_admin_orders_path(current_admin) %> |
+        <%= link_to 'Orders created by me', admin_orders_path(current_admin) %> |
+        <%= link_to 'Sign out', destroy_admin_session_path, :method => :delete %>
+      </div>
+    <% end -%>
+    <div style="clear:both"></div>
+
+
+    <%= yield %>
+  </div>
+</body>
+</html>

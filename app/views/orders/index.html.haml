@@ -1,0 +1,29 @@
+List of orders
+%ul
+- @orders.each do |order|
+  %li
+    =order.id
+
+    - if costumer_signed_in?
+      -if order.costumer_approved
+        = "approved"
+      -else
+        = link_to "approve", approve_costumer_order_path(current_costumer,order), :method => :put
+      = link_to "edit", edit_costumer_order_path(current_costumer,order)
+    - if admin_signed_in?
+      -if order.costumer_approved
+        = "approved"
+      -else
+        = "not approved"
+      -unless order.sent       
+        = link_to "send", sent_admin_order_path(current_admin,order), :method => :put
+      = link_to "destroy", admin_order_path(current_admin,order), :method => :delete
+      = link_to "edit", edit_admin_order_path(current_admin,order)
+
+    -if order.sent
+      = "sent"
+    -if order.enclosure
+      = link_to "download file", order.enclosure.url
+
+
+

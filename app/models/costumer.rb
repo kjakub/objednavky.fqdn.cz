@@ -1,0 +1,14 @@
+class Costumer < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  attr_accessible :billing_street, :billing_zip, :billing_city, :billing_country, :delivery_same, :delivery_street, :delivery_zip, :delivery_city, :delivery_country
+  # attr_accessible :title, :body
+  has_many :orders
+end

@@ -1,0 +1,83 @@
+class JksController < ApplicationController
+  # GET /jks
+  # GET /jks.json
+  def index
+    @jks = Jk.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @jks }
+    end
+  end
+
+  # GET /jks/1
+  # GET /jks/1.json
+  def show
+    @jk = Jk.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @jk }
+    end
+  end
+
+  # GET /jks/new
+  # GET /jks/new.json
+  def new
+    @jk = Jk.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @jk }
+    end
+  end
+
+  # GET /jks/1/edit
+  def edit
+    @jk = Jk.find(params[:id])
+  end
+
+  # POST /jks
+  # POST /jks.json
+  def create
+    @jk = Jk.new(params[:jk])
+
+    respond_to do |format|
+      if @jk.save
+        format.html { redirect_to @jk, notice: 'Jk was successfully created.' }
+        format.json { render json: @jk, status: :created, location: @jk }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @jk.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /jks/1
+  # PUT /jks/1.json
+  def update
+    @jk = Jk.find(params[:id])
+
+    respond_to do |format|
+      if @jk.update_attributes(params[:jk])
+        format.html { redirect_to @jk, notice: 'Jk was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @jk.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /jks/1
+  # DELETE /jks/1.json
+  def destroy
+    @jk = Jk.find(params[:id])
+    @jk.destroy
+
+    respond_to do |format|
+      format.html { redirect_to jks_url }
+      format.json { head :no_content }
+    end
+  end
+end
