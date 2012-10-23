@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20121006191929) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
     t.string   "name"
     t.string   "surname"
     t.string   "company_name"
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20121006191929) do
     t.datetime "updated_at",                             :null => false
   end
 
+  add_index "costumers", ["authentication_token"], :name => "index_costumers_on_authentication_token", :unique => true
   add_index "costumers", ["email"], :name => "index_costumers_on_email", :unique => true
   add_index "costumers", ["reset_password_token"], :name => "index_costumers_on_reset_password_token", :unique => true
 
@@ -75,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20121006191929) do
     t.datetime "enclosure_updated_at"
     t.integer  "admin_id"
     t.integer  "costumer_id"
-    t.boolean  "costumer_approved",      :default => false
-    t.boolean  "admin_approved",         :default => false
+    t.integer  "admin_approver_id"
+    t.boolean  "approved",               :default => false
     t.boolean  "sent",                   :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false

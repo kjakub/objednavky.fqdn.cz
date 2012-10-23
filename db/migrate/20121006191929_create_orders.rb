@@ -8,9 +8,9 @@ class CreateOrders < ActiveRecord::Migration
       
       t.references :admin
       t.references :costumer
+      t.references :admin_approver
 
-      t.boolean :costumer_approved, :default => false
-      t.boolean :admin_approved, :default => false
+      t.boolean :approved, :default => false
       t.boolean :sent, :default => false
       t.timestamps
     end

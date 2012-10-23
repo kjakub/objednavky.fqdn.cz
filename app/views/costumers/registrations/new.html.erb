@@ -14,7 +14,12 @@
 
   <%= render :partial => 'customer_info',:locals => {:f => f } %>
 
+
   <div><%= f.submit "Sign up" %></div>
+  
+  <% if admin_signed_in? -%>
+    <div><%= f.submit "Only Create", :name => "only_create" %></div>
+  <% end -%>
 <% end %>
 
 <%= render "devise/shared/links" %>
