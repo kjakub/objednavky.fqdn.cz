@@ -31,7 +31,7 @@ class DeviseCreateCostumers < ActiveRecord::Migration
       # t.datetime :locked_at
 
       ## Token authenticatable
-      # t.string :authentication_token
+      t.string :authentication_token
 
       ##costumer attributes
       t.string :name
@@ -58,6 +58,6 @@ class DeviseCreateCostumers < ActiveRecord::Migration
     add_index :costumers, :reset_password_token, :unique => true
     # add_index :costumers, :confirmation_token,   :unique => true
     # add_index :costumers, :unlock_token,         :unique => true
-    # add_index :costumers, :authentication_token, :unique => true
+    add_index :costumers, :authentication_token, :unique => true
   end
 end

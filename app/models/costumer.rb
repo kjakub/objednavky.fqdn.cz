@@ -3,7 +3,7 @@ class Costumer < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -11,4 +11,13 @@ class Costumer < ActiveRecord::Base
   attr_accessible :billing_street, :billing_zip, :billing_city, :billing_country, :delivery_same, :delivery_street, :delivery_zip, :delivery_city, :delivery_country
   # attr_accessible :title, :body
   has_many :orders
+
+  after_create :create_token
+  
+private
+  
+  def create_token
+    self.reset_authentication_token!
+  end
+
 end

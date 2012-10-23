@@ -1,61 +1,44 @@
-           new_admin_session GET    /admins/sign_in(.:format)                            devise/sessions#new
-               admin_session POST   /admins/sign_in(.:format)                            devise/sessions#create
-       destroy_admin_session DELETE /admins/sign_out(.:format)                           devise/sessions#destroy
-              admin_password POST   /admins/password(.:format)                           devise/passwords#create
-          new_admin_password GET    /admins/password/new(.:format)                       devise/passwords#new
-         edit_admin_password GET    /admins/password/edit(.:format)                      devise/passwords#edit
-                             PUT    /admins/password(.:format)                           devise/passwords#update
-   cancel_admin_registration GET    /admins/cancel(.:format)                             devise/registrations#cancel
-          admin_registration POST   /admins(.:format)                                    devise/registrations#create
-      new_admin_registration GET    /admins/sign_up(.:format)                            devise/registrations#new
-     edit_admin_registration GET    /admins/edit(.:format)                               devise/registrations#edit
-                             PUT    /admins(.:format)                                    devise/registrations#update
-                             DELETE /admins(.:format)                                    devise/registrations#destroy
-        new_costumer_session GET    /costumers/sign_in(.:format)                         devise/sessions#new
-            costumer_session POST   /costumers/sign_in(.:format)                         devise/sessions#create
-    destroy_costumer_session DELETE /costumers/sign_out(.:format)                        devise/sessions#destroy
-           costumer_password POST   /costumers/password(.:format)                        devise/passwords#create
-       new_costumer_password GET    /costumers/password/new(.:format)                    devise/passwords#new
-      edit_costumer_password GET    /costumers/password/edit(.:format)                   devise/passwords#edit
-                             PUT    /costumers/password(.:format)                        devise/passwords#update
-cancel_costumer_registration GET    /costumers/cancel(.:format)                          devise/registrations#cancel
-       costumer_registration POST   /costumers(.:format)                                 devise/registrations#create
-   new_costumer_registration GET    /costumers/sign_up(.:format)                         devise/registrations#new
-  edit_costumer_registration GET    /costumers/edit(.:format)                            devise/registrations#edit
-                             PUT    /costumers(.:format)                                 devise/registrations#update
-                             DELETE /costumers(.:format)                                 devise/registrations#destroy
-      approve_costumer_order PUT    /costumers/:costumer_id/orders/:id/approve(.:format) orders#approve
-         sent_costumer_order PUT    /costumers/:costumer_id/orders/:id/sent(.:format)    orders#sent
-  all_orders_costumer_orders GET    /costumers/:costumer_id/orders/all_orders(.:format)  orders#all_orders
-             costumer_orders GET    /costumers/:costumer_id/orders(.:format)             orders#index
-                             POST   /costumers/:costumer_id/orders(.:format)             orders#create
-          new_costumer_order GET    /costumers/:costumer_id/orders/new(.:format)         orders#new
-         edit_costumer_order GET    /costumers/:costumer_id/orders/:id/edit(.:format)    orders#edit
-              costumer_order GET    /costumers/:costumer_id/orders/:id(.:format)         orders#show
-                             PUT    /costumers/:costumer_id/orders/:id(.:format)         orders#update
-                             DELETE /costumers/:costumer_id/orders/:id(.:format)         orders#destroy
-                   costumers GET    /costumers(.:format)                                 costumers#index
-                             POST   /costumers(.:format)                                 costumers#create
-                new_costumer GET    /costumers/new(.:format)                             costumers#new
-               edit_costumer GET    /costumers/:id/edit(.:format)                        costumers#edit
-                    costumer GET    /costumers/:id(.:format)                             costumers#show
-                             PUT    /costumers/:id(.:format)                             costumers#update
-                             DELETE /costumers/:id(.:format)                             costumers#destroy
-         approve_admin_order PUT    /admins/:admin_id/orders/:id/approve(.:format)       orders#approve
-            sent_admin_order PUT    /admins/:admin_id/orders/:id/sent(.:format)          orders#sent
-     all_orders_admin_orders GET    /admins/:admin_id/orders/all_orders(.:format)        orders#all_orders
-                admin_orders GET    /admins/:admin_id/orders(.:format)                   orders#index
-                             POST   /admins/:admin_id/orders(.:format)                   orders#create
-             new_admin_order GET    /admins/:admin_id/orders/new(.:format)               orders#new
-            edit_admin_order GET    /admins/:admin_id/orders/:id/edit(.:format)          orders#edit
-                 admin_order GET    /admins/:admin_id/orders/:id(.:format)               orders#show
-                             PUT    /admins/:admin_id/orders/:id(.:format)               orders#update
-                             DELETE /admins/:admin_id/orders/:id(.:format)               orders#destroy
-                      admins GET    /admins(.:format)                                    admins#index
-                             POST   /admins(.:format)                                    admins#create
-                   new_admin GET    /admins/new(.:format)                                admins#new
-                  edit_admin GET    /admins/:id/edit(.:format)                           admins#edit
-                       admin GET    /admins/:id(.:format)                                admins#show
-                             PUT    /admins/:id(.:format)                                admins#update
-                             DELETE /admins/:id(.:format)                                admins#destroy
-                        root        /                                                    home#index
+           new_admin_session GET    /admins/sign_in(.:format)                                   devise/sessions#new
+               admin_session POST   /admins/sign_in(.:format)                                   devise/sessions#create
+       destroy_admin_session DELETE /admins/sign_out(.:format)                                  devise/sessions#destroy
+              admin_password POST   /admins/password(.:format)                                  devise/passwords#create
+          new_admin_password GET    /admins/password/new(.:format)                              devise/passwords#new
+         edit_admin_password GET    /admins/password/edit(.:format)                             devise/passwords#edit
+                             PUT    /admins/password(.:format)                                  devise/passwords#update
+   cancel_admin_registration GET    /admins/cancel(.:format)                                    devise/registrations#cancel
+          admin_registration POST   /admins(.:format)                                           devise/registrations#create
+      new_admin_registration GET    /admins/sign_up(.:format)                                   devise/registrations#new
+     edit_admin_registration GET    /admins/edit(.:format)                                      devise/registrations#edit
+                             PUT    /admins(.:format)                                           devise/registrations#update
+                             DELETE /admins(.:format)                                           devise/registrations#destroy
+        new_costumer_session GET    /costumers/sign_in(.:format)                                devise/sessions#new
+            costumer_session POST   /costumers/sign_in(.:format)                                devise/sessions#create
+    destroy_costumer_session DELETE /costumers/sign_out(.:format)                               devise/sessions#destroy
+           costumer_password POST   /costumers/password(.:format)                               devise/passwords#create
+       new_costumer_password GET    /costumers/password/new(.:format)                           devise/passwords#new
+      edit_costumer_password GET    /costumers/password/edit(.:format)                          devise/passwords#edit
+                             PUT    /costumers/password(.:format)                               devise/passwords#update
+cancel_costumer_registration GET    /costumers/cancel(.:format)                                 costumers#cancel
+       costumer_registration POST   /costumers(.:format)                                        costumers#create
+   new_costumer_registration GET    /costumers/sign_up(.:format)                                costumers#new
+  edit_costumer_registration GET    /costumers/edit(.:format)                                   costumers#edit
+                             PUT    /costumers(.:format)                                        costumers#update
+                             DELETE /costumers(.:format)                                        costumers#destroy
+      approve_costumer_order PUT    /manage/costumers/:costumer_id/orders/:id/approve(.:format) orders#approve
+         sent_costumer_order PUT    /manage/costumers/:costumer_id/orders/:id/sent(.:format)    orders#sent
+  all_orders_costumer_orders GET    /manage/costumers/:costumer_id/orders/all_orders(.:format)  orders#all_orders
+             costumer_orders GET    /manage/costumers/:costumer_id/orders(.:format)             orders#index
+                             POST   /manage/costumers/:costumer_id/orders(.:format)             orders#create
+          new_costumer_order GET    /manage/costumers/:costumer_id/orders/new(.:format)         orders#new
+         edit_costumer_order GET    /manage/costumers/:costumer_id/orders/:id/edit(.:format)    orders#edit
+              costumer_order GET    /manage/costumers/:costumer_id/orders/:id(.:format)         orders#show
+                             PUT    /manage/costumers/:costumer_id/orders/:id(.:format)         orders#update
+                             DELETE /manage/costumers/:costumer_id/orders/:id(.:format)         orders#destroy
+                   costumers GET    /manage/costumers(.:format)                                 crud_costumers#index
+                             POST   /manage/costumers(.:format)                                 crud_costumers#create
+                new_costumer GET    /manage/costumers/new(.:format)                             crud_costumers#new
+               edit_costumer GET    /manage/costumers/:id/edit(.:format)                        crud_costumers#edit
+                    costumer GET    /manage/costumers/:id(.:format)                             crud_costumers#show
+                             PUT    /manage/costumers/:id(.:format)                             crud_costumers#update
+                             DELETE /manage/costumers/:id(.:format)                             crud_costumers#destroy
+                        root        /                                                           home#index

@@ -1,0 +1,4 @@
+= semantic_form_for costumer do |f|
+  = f.input :email
+  = render :partial => 'costumers/customer_info',:locals => {:f => f }
+  = f.buttons

@@ -1,0 +1,12 @@
+%h1
+  List of of Costumers
+%ul{"data-role" => "listview", "data-inset" => "true"}
+  - @costumers.each do |costumer|
+    %li
+      ="Customer #"
+      = costumer.id
+      %br
+      = costumer.email
+      %div{"data-role" => "controlgroup", "data-type" => "horizontal"}
+        = link_to "destroy", costumer_path(costumer), :method => :delete, :data =>{:role => "button"}
+        = link_to "edit", edit_costumer_path(costumer), :data =>{:role => "button"}

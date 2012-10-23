@@ -1,7 +1,16 @@
 = semantic_form_for [user, order] do |f|
-  = f.input :comment
-  = f.input :costumer, :as => :select, :include_blank => false, :collection => Hash[Costumer.all.map{|c| [c.email,c.id]}]
-  = f.input :delivery_mode, :as => :select, :include_blank => true, :collection => Order.delivery_modes
-  = f.input :tracking_number
-  = f.input :enclosure, :as => :file
-  = f.buttons
+  %div{"data-role" => "fieldcontain"}
+    = f.input :comment
+    - if admin_signed_in?
+      = f.input :admin_approver, :label => "Approver", :as => :select, :include_blank => true, :collection => Order.possibly_approvers, :input_html => { :disabled => admin_signed_in? ? false : true}
+      = f.input :costumer, :as => :select, :include_blank => false, :collection => Hash[Costumer.all.map{|c| [c.email,c.id]}]
+    
+    = f.input :delivery_mode, :as => :select, :include_blank => true, :collection => Order.delivery_modes, :input_html => { :disabled => admin_signed_in? ? false : true}
+
+    
+
+    = f.input :tracking_number, :input_html => { :readonly => admin_signed_in? ? false : true}
+    
+    - if admin_signed_in?
+      = f.input :enclosure, :as => :file
+    = f.buttons

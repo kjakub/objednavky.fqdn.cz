@@ -2,40 +2,61 @@
 <html>
 <head>
   <title>Hanes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
   <%= stylesheet_link_tag "application", :media => "all" %>
-
   <%= javascript_include_tag "application" %>
+
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+  // <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+  
+  <script>
+
+    $(document).bind("mobileinit", function(){
+      console.log('a');
+      $.mobile.ajaxEnabled = false;
+    });
+  </script>
+
+
+  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+
   <%= csrf_meta_tags %>
+
 </head>
 <body>
-  <div id="container">
+  <div data-role="page"> 
+    <div data-role="header">
+      <%= link_to 'Home', root_path, :class => "ui-btn-right" %>
+      <% if costumer_signed_in? -%>
+          
+          <h1><%= current_costumer.email %>:costumer</h1>
+          <!-- <%= link_to 'New order', new_costumer_order_path(current_costumer) %> | -->
+          <%= link_to 'My orders', costumer_orders_path(current_costumer) %>
+          <%= link_to 'My info', edit_costumer_registration_path %>
+          <%= link_to 'Sign out', destroy_costumer_session_path, :method => :delete %>
+
+      <% elsif admin_signed_in? -%>
+          <h1><%= current_admin.email %>:admin</h1>
+          <%= link_to 'New order', new_admin_order_path(current_admin) %>
+          <%= link_to 'New Costumer', new_costumer_registration_path %>
+          <%= link_to 'Costumers', costumers_path %>
+          <%= link_to 'All orders', all_orders_admin_orders_path(current_admin) %>
+          <%= link_to 'Orders created by me', admin_orders_path(current_admin) %>
+          <%= link_to 'Sign out', destroy_admin_session_path, :method => :delete %>
+          
+      <% else -%>
+          <%= link_to 'Sign up as Admin', new_admin_registration_path %>
+          <%= link_to 'Sign in as Admin', new_admin_session_path %>
+
+          <%= link_to 'Sign up as Costumer', new_costumer_registration_path %>
+          <%= link_to 'Sign in as Costumer', new_costumer_session_path %>
+
+
+      <% end -%>
+    </div>
     <%- flash.each do |name, msg| -%>
       <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
     <%- end -%>
-
-    <p><%= link_to 'Home', root_path %></p>
-
-    <% if costumer_signed_in? -%>
-      <div id="user_login_box" style="float:right">
-        <%= current_costumer.email %> |
-        <!-- <%= link_to 'New order', new_costumer_order_path(current_costumer) %> | -->
-        <%= link_to 'My orders', costumer_orders_path(current_costumer) %> |
-        <%= link_to 'My info', edit_costumer_registration_path %> |
-        <%= link_to 'Sign out', destroy_costumer_session_path, :method => :delete %>
-      </div>
-    <% end -%>
-    <% if admin_signed_in? -%>
-      <div id="admin_login_box" style="float:left">
-        <%= current_admin.email %> |
-        <%= link_to 'New order', new_admin_order_path(current_admin) %> |
-        <%= link_to 'All orders', all_orders_admin_orders_path(current_admin) %> |
-        <%= link_to 'Orders created by me', admin_orders_path(current_admin) %> |
-        <%= link_to 'Sign out', destroy_admin_session_path, :method => :delete %>
-      </div>
-    <% end -%>
-    <div style="clear:both"></div>
-
-
     <%= yield %>
   </div>
 </body>

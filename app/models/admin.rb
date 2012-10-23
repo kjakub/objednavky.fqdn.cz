@@ -9,5 +9,6 @@ class Admin < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
   has_many :orders
+  has_many :orders_to_approve, :class_name => 'Order', :foreign_key => :admin_approver_id
   accepts_nested_attributes_for :orders, :allow_destroy => true
 end

@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   
-  before_filter :check_for_resource_and_authenticate
+  before_filter :check_for_resource
   before_filter :authenticate_admin!, :only => [:all_orders,:destroy,:send]
-  before_filter :authenticate_costumer!, :only => [:approve]
+  before_filter :authenticate_for_approve!, :only => [:approve]
 
 private
 
@@ -16,17 +16,18 @@ private
     end
   end
   
-  def check_for_resource_and_authenticate
+  def check_for_resource
     if admin_signed_in?
-      authenticate_admin!
       @user = current_admin
     elsif costumer_signed_in?
-      authenticate_costumer!
       @user = current_costumer
     else
       redirect_to root_path
-    end
-      
+    end 
+  end
+
+  def authenticate_for_approve!
+    redirect :to => root_path unless admin_signed_in? || costumer_signed_in?
   end
 
 public
@@ -74,7 +75,7 @@ public
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to root_path, notice: 'Order was successfully created.' }
+        format.html { redirect_to costumer_or_admin_orders_path, notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: "new" }
@@ -114,15 +115,19 @@ public
 
   def approve
     @order = @user.orders.find(params[:id])
-
-    @order.costumer_approved = true
+    
     respond_to do |format|
-      if @order.save
-        format.html { redirect_to :back, notice: 'Order was approved.' }
-        format.json { render json: @order, status: :created, location: @order }
+      if @order.approver == @user
+        @order.approved = true
+        if @order.save 
+          format.html { redirect_to :back, notice: 'Order was approved.' }
+          format.json { render json: @order, status: :created, location: @order }
+        else
+          format.html { redirect_to :back, notice: 'Order was not approved.' }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { redirect_to :back, notice: 'Order was not approved.' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        format.html { redirect_to :back, notice: 'You are not eligible to approve' }
       end
     end
   end
@@ -134,6 +139,7 @@ public
     @order.sent = true
     respond_to do |format|
       if @order.save
+        UserMailer.order_sent(@order).deliver
         format.html { redirect_to :back, notice: 'Order was marked as sent.' }
         format.json { render json: @order, status: :created, location: @order }
       else

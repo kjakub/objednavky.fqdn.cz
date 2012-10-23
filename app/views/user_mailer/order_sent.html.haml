@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h3
+      Dear #{@costumer.email} ,
+    - if @order.delivery_mode == "PPL"
+      %p
+        Your order have now been shipped via 
+        = link_to "PPL/DHL","http://www.ppl.cz/"
+        The tracking number for these items is: 
+        = link_to @order.tracking_number, "http://www.ppl.cz/main2.aspx?cls=Package&idSearch="+@order.tracking_number if @order.tracking_number.present?
+
+        %br/
+    - elsif @order.delivery_mode == "FedEx"
+      %p
+        Your order have now been shipped via 
+        = link_to "FedEx","https://www.fedex.com/cz_english/"
+        The tracking number for these items is: 
+        = link_to @order.tracking_number, "http://www.fedex.com/Tracking?tracknumbers="+@order.tracking_number if @order.tracking_number.present?
+    %p
+      You can hit this 
+      = link_to "Link", costumer_orders_url(@costumer,:params => {:auth_token => @costumer.authentication_token})
+      to access your orders.
+    
+
+    %p
+      Please allow some time for the status of the shipment to correctly display at the above address.

@@ -1,17 +1,27 @@
 Hanes::Application.routes.draw do
   
-
   devise_for :admins
-  devise_for :costumers
-  
-  resources :costumers,:admins do
-    resources :orders do
-      put :approve, :on => :member
-      put :sent, :on => :member
-      get :all_orders, :on => :collection
+  devise_for :costumers, :controllers => { :registrations => "costumers" }
+
+  scope "/manage" do
+    resources :costumers, :controller => :crud_costumers do
+      resources :orders do
+        put :approve, :on => :member
+        put :sent, :on => :member
+        get :all_orders, :on => :collection
+      end
     end
   end
 
+  scope "/manage" do
+    resources :admins do
+      resources :orders do
+        put :approve, :on => :member
+        put :sent, :on => :member
+        get :all_orders, :on => :collection
+      end
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
