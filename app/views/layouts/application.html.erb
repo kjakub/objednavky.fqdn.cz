@@ -27,19 +27,19 @@
   <div data-role="page"> 
     <div data-role="header">
       <%= link_to 'Home', root_path, :class => "ui-btn-right" %>
-      <% if costumer_signed_in? -%>
+      <% if customer_signed_in? -%>
           
-          <h1><%= current_costumer.email %>:costumer</h1>
-          <!-- <%= link_to 'New order', new_costumer_order_path(current_costumer) %> | -->
-          <%= link_to 'My orders', costumer_orders_path(current_costumer) %>
-          <%= link_to 'My info', edit_costumer_registration_path %>
-          <%= link_to 'Sign out', destroy_costumer_session_path, :method => :delete %>
+          <h1><%= current_customer.email %>:customer</h1>
+          <!-- <%= link_to 'New order', new_customer_order_path(current_customer) %> | -->
+          <%= link_to 'My orders', customer_orders_path(current_customer) %>
+          <%= link_to 'My info', edit_customer_registration_path %>
+          <%= link_to 'Sign out', destroy_customer_session_path, :method => :delete %>
 
       <% elsif admin_signed_in? -%>
           <h1><%= current_admin.email %>:admin</h1>
           <%= link_to 'New order', new_admin_order_path(current_admin) %>
-          <%= link_to 'New Costumer', new_costumer_registration_path %>
-          <%= link_to 'Costumers', costumers_path %>
+          <%= link_to 'New Customer', new_customer_registration_path %>
+          <%= link_to 'Customers', customers_path %>
           <%= link_to 'All orders', all_orders_admin_orders_path(current_admin) %>
           <%= link_to 'Orders created by me', admin_orders_path(current_admin) %>
           <%= link_to 'Sign out', destroy_admin_session_path, :method => :delete %>
@@ -48,8 +48,8 @@
           <%= link_to 'Sign up as Admin', new_admin_registration_path %>
           <%= link_to 'Sign in as Admin', new_admin_session_path %>
 
-          <%= link_to 'Sign up as Costumer', new_costumer_registration_path %>
-          <%= link_to 'Sign in as Costumer', new_costumer_session_path %>
+          <%= link_to 'Sign up as Customer', new_customer_registration_path %>
+          <%= link_to 'Sign in as Customer', new_customer_session_path %>
 
 
       <% end -%>

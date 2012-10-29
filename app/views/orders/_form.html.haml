@@ -3,7 +3,7 @@
     = f.input :comment
     - if admin_signed_in?
       = f.input :admin_approver, :label => "Approver", :as => :select, :include_blank => true, :collection => Order.possibly_approvers, :input_html => { :disabled => admin_signed_in? ? false : true}
-      = f.input :costumer, :as => :select, :include_blank => false, :collection => Hash[Costumer.all.map{|c| [c.email,c.id]}]
+      = f.input :customer, :as => :select, :include_blank => false, :collection => Hash[Customer.all.map{|c| [c.email,c.id]}]
     
     = f.input :delivery_mode, :as => :select, :include_blank => true, :collection => Order.delivery_modes, :input_html => { :disabled => admin_signed_in? ? false : true}
 

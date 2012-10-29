@@ -21,8 +21,8 @@
       
       %div{"data-role" => "controlgroup", "data-type" => "horizontal"}
         
-        - if costumer_signed_in?
-          = link_to "approve", approve_costumer_order_path(current_costumer,order), :method => :put if order.approver == current_costumer
+        - if customer_signed_in?
+          = link_to "approve", approve_customer_order_path(current_customer,order), :method => :put if order.approver == current_customer
         
 
         - if admin_signed_in?

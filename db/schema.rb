@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(:version => 20121006191929) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
-  create_table "costumers", :force => true do |t|
+  create_table "customers", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(:version => 20121006191929) do
     t.datetime "updated_at",                             :null => false
   end
 
-  add_index "costumers", ["authentication_token"], :name => "index_costumers_on_authentication_token", :unique => true
-  add_index "costumers", ["email"], :name => "index_costumers_on_email", :unique => true
-  add_index "costumers", ["reset_password_token"], :name => "index_costumers_on_reset_password_token", :unique => true
+  add_index "customers", ["authentication_token"], :name => "index_customers_on_authentication_token", :unique => true
+  add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
+  add_index "customers", ["reset_password_token"], :name => "index_customers_on_reset_password_token", :unique => true
 
   create_table "orders", :force => true do |t|
     t.text     "comment"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(:version => 20121006191929) do
     t.integer  "enclosure_file_size"
     t.datetime "enclosure_updated_at"
     t.integer  "admin_id"
-    t.integer  "costumer_id"
+    t.integer  "customer_id"
     t.integer  "admin_approver_id"
     t.boolean  "approved",               :default => false
     t.boolean  "sent",                   :default => false
@@ -85,6 +85,6 @@ ActiveRecord::Schema.define(:version => 20121006191929) do
   end
 
   add_index "orders", ["admin_id"], :name => "index_orders_on_admin_id"
-  add_index "orders", ["costumer_id"], :name => "index_orders_on_costumer_id"
+  add_index "orders", ["customer_id"], :name => "index_orders_on_customer_id"
 
 end

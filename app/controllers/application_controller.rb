@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    current_costumer || current_admin
+    current_customer || current_admin
   end
 end

@@ -6,11 +6,11 @@ class OrdersController < ApplicationController
 
 private
 
-  def costumer_or_admin_orders_path
+  def customer_or_admin_orders_path
     if admin_signed_in?
       admin_orders_path(@user)
-    elsif costumer_signed_in?
-      costumer_orders_path(@user)
+    elsif customer_signed_in?
+      customer_orders_path(@user)
     else
       root_path
     end
@@ -19,15 +19,15 @@ private
   def check_for_resource
     if admin_signed_in?
       @user = current_admin
-    elsif costumer_signed_in?
-      @user = current_costumer
+    elsif customer_signed_in?
+      @user = current_customer
     else
       redirect_to root_path
     end 
   end
 
   def authenticate_for_approve!
-    redirect :to => root_path unless admin_signed_in? || costumer_signed_in?
+    redirect :to => root_path unless admin_signed_in? || customer_signed_in?
   end
 
 public
@@ -75,7 +75,7 @@ public
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to costumer_or_admin_orders_path, notice: 'Order was successfully created.' }
+        format.html { redirect_to customer_or_admin_orders_path, notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: "new" }
@@ -91,7 +91,7 @@ public
 
     respond_to do |format|
       if @order.update_attributes(params[:order])
-        format.html { redirect_to costumer_or_admin_orders_path, notice: 'Order was successfully updated.' }
+        format.html { redirect_to customer_or_admin_orders_path, notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -108,7 +108,7 @@ public
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to costumer_or_admin_orders_path, notice: 'Order was deleted.' }
+      format.html { redirect_to customer_or_admin_orders_path, notice: 'Order was deleted.' }
       format.json { head :no_content }
     end
   end
@@ -133,7 +133,7 @@ public
   end
 
   def sent
-    #maybe cant send until costumer_approved?
+    #maybe cant send until customer_approved?
     @order = Order.find(params[:id])
 
     @order.sent = true

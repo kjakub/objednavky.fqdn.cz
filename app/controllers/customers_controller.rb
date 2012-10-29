@@ -1,4 +1,4 @@
-class CostumersController < Devise::RegistrationsController
+class CustomersController < Devise::RegistrationsController
 
   def create
     build_resource

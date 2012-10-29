@@ -4,7 +4,7 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
   %body
     %h3
-      Dear #{@costumer.email} ,
+      Dear #{@customer.email} ,
     - if @order.delivery_mode == "PPL"
       %p
         Your order have now been shipped via 
@@ -21,7 +21,7 @@
         = link_to @order.tracking_number, "http://www.fedex.com/Tracking?tracknumbers="+@order.tracking_number if @order.tracking_number.present?
     %p
       You can hit this 
-      = link_to "Link", costumer_orders_url(@costumer,:params => {:auth_token => @costumer.authentication_token})
+      = link_to "Link", customer_orders_url(@customer,:params => {:auth_token => @customer.authentication_token})
       to access your orders.
     
 

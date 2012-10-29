@@ -7,7 +7,7 @@ class CreateOrders < ActiveRecord::Migration
       t.attachment :enclosure
       
       t.references :admin
-      t.references :costumer
+      t.references :customer
       t.references :admin_approver
 
       t.boolean :approved, :default => false
@@ -15,6 +15,6 @@ class CreateOrders < ActiveRecord::Migration
       t.timestamps
     end
     add_index :orders, :admin_id
-    add_index :orders, :costumer_id
+    add_index :orders, :customer_id
   end
 end
