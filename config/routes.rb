@@ -1,6 +1,6 @@
 Hanes::Application.routes.draw do
   
-  devise_for :admins
+  devise_for :admins, :controllers => { :registrations => "admins" }
   devise_for :customers, :controllers => { :registrations => "customers" }
 
   scope "/manage" do
@@ -19,6 +19,7 @@ Hanes::Application.routes.draw do
         put :approve, :on => :member
         put :sent, :on => :member
         get :all_orders, :on => :collection
+        get :to_approve, :on => :collection
       end
     end
   end

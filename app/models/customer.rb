@@ -8,7 +8,7 @@ class Customer < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :billing_street, :billing_zip, :billing_city, :billing_country, :delivery_same, :delivery_street, :delivery_zip, :delivery_city, :delivery_country
+  attr_accessible :billing_street, :billing_zip, :billing_city, :billing_country, :delivery_same, :delivery_street, :delivery_zip, :delivery_city, :delivery_country, :name, :surname, :company_name
   # attr_accessible :title, :body
   has_many :orders
 

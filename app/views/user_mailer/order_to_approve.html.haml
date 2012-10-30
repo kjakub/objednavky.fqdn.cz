@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h3
+      Dear #{@approver.email} ,
+    %p
+      Your order from ECOZZ have to be approved
+    
+    - if @approver.is_a? Customer
+      %p
+        You can hit this 
+        = link_to "Link", customer_orders_url(@approver,:params => {:auth_token => @approver.authentication_token})
+        to access your orders.
+    
+    - else
+      %p
+        Please login to your admin account and approve order. 

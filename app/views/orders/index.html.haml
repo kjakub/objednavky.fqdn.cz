@@ -1,40 +1,88 @@
 %h1
   List of orders
-%ul{"data-role" => "listview", "data-inset" => "true"}
+%table
+  %tr
+    %th
+      id
+    %th
+      customer
+    %th
+      created
+    %th
+      sent
+    %th
+      approved
+    %th
+      operations
   - @orders.each do |order|
-    %li
-      ="Order #"
-      =order.id
-      %br
-      ="Created at : "
-      =order.created_at.to_date
-      %br
-      -if order.sent
-        = "sent : yes"
-      - else
-        = "sent : no"
-      %br
-      -if order.approved
-        = "approved : yes"
-      -else
-        = "approved : no"
+    %tr
+      %td
+        =order.id
+      %td
+        =order.customer.email
+      %td
+        =order.created_at.to_date
+      %td
+        =order.sent
+      %td
+        =order.approved
+      %td
+
+        %div{"data-role" => "controlgroup", "data-type" => "horizontal", "data-mini" => "true"}
+          - if customer_signed_in?
+            -if order.approver == current_customer
+              = link_to "approve", approve_customer_order_path(current_customer,order), :method => :put, :data =>{:role => "button" } unless order.approved 
+            = link_to "edit", edit_customer_order_path(current_customer,order), :data =>{:role => "button" }
+          
+
+          - if admin_signed_in?
+            - if order.approver == current_admin
+              = link_to "approve", approve_admin_order_path(current_admin,order), :method => :put,:data =>{:role => "button" } unless order.approved 
+            - unless order.sent       
+              = link_to "send", sent_admin_order_path(current_admin,order), :method => :put, "data-role" => "button"
+            = link_to "delete", admin_order_path(current_admin,order), :method => :delete, :data =>{:role => "button" }
+            = link_to "edit", edit_admin_order_path(current_admin,order), :data =>{:role => "button" }
+            
+          -if order.enclosure.present?
+            = link_to "download file", order.enclosure.url, :data =>{:role => "button" }
+
+/ %ul{"data-role" => "listview", "data-inset" => "true"}
+/   - @orders.each do |order|
+/     %li
+/       ="Order #"
+/       =order.id
+/       %br
+/       ="Created at : "
+/       =order.created_at.to_date
+/       %br
+/       -if order.sent
+/         = "sent : yes"
+/       - else
+/         = "sent : no"
+/       %br
+/       -if order.approved
+/         = "approved : yes"
+/       -else
+/         = "approved : no"
       
-      %div{"data-role" => "controlgroup", "data-type" => "horizontal"}
+/       %div{"data-role" => "controlgroup", "data-type" => "horizontal"}
         
-        - if customer_signed_in?
-          = link_to "approve", approve_customer_order_path(current_customer,order), :method => :put if order.approver == current_customer
+/         - if customer_signed_in?
+/           -if order.approver == current_customer
+/             = link_to "approve", approve_customer_order_path(current_customer,order), :method => :put, :data =>{:role => "button" } unless order.approved 
+/           = link_to "edit", edit_customer_order_path(current_customer,order), :data =>{:role => "button" }
         
 
-        - if admin_signed_in?
-          - if order.approver == current_admin
-            = link_to "approve", approve_admin_order_path(current_admin,order), :method => :put,:data =>{:role => "button" } 
-          -unless order.sent       
-            = link_to "send", sent_admin_order_path(current_admin,order), :method => :put, "data-role" => "button"
-            = link_to "destroy", admin_order_path(current_admin,order), :method => :delete, :data =>{:role => "button" }
-          = link_to "edit", edit_admin_order_path(current_admin,order), :data =>{:role => "button" }
+/         - if admin_signed_in?
+/           - if order.approver == current_admin
+/             = link_to "approve", approve_admin_order_path(current_admin,order), :method => :put,:data =>{:role => "button" } 
+/           - unless order.sent       
+/             = link_to "send", sent_admin_order_path(current_admin,order), :method => :put, "data-role" => "button"
+/             = link_to "destroy", admin_order_path(current_admin,order), :method => :delete, :data =>{:role => "button" }
+/           = link_to "edit", edit_admin_order_path(current_admin,order), :data =>{:role => "button" }
           
-        -if order.enclosure.present?
-          = link_to "download file", order.enclosure.url, :data =>{:role => "button" }
+/         -if order.enclosure.present?
+/           = link_to "download file", order.enclosure.url, :data =>{:role => "button" }
 
 
 

@@ -1,0 +1,26 @@
+<h2>New Admin</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  
+    <%= devise_error_messages! %>
+    <div data-role="fieldcontain">
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+    </div>
+    <div data-role="fieldcontain">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+    </div>
+    <div data-role="fieldcontain">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+    </div>
+
+  <div data-role="fieldcontain">
+    <fieldset data-role="controlgroup">
+      <legend class= 'ui-input-text'>
+        <%= f.submit "Create" %>
+      </legend>
+    </fieldset>
+  </div>
+<% end %>

@@ -1,27 +1,33 @@
 <h1>New Customer</h1>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <div data-role="fieldcontain">
     <%= devise_error_messages! %>
-
+  <div data-role="fieldcontain">
     <%= f.label :email %>
     <%= f.email_field :email %>
-
+  </div>
+  <div data-role="fieldcontain">
     <%= f.label :password %>
-    <%= f.password_field :password %>
-
+    <%= f.password_field :password, :autocomplete => "off" %>
+  </div>
+  <div data-role="fieldcontain">
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
+  </div>
+  <div data-role="fieldcontain">
+    <%= f.label :current_password %>
+    <%= f.password_field :current_password %>
+  </div>
 
     <%= render :partial => 'customer_info',:locals => {:f => f } %>
 
-
-    <%= f.submit "Sign up" %>
-    
-    <% if admin_signed_in? -%>
-      <%= f.submit "Only Create", :name => "only_create" %>
-    <% end -%>
+  <div data-role="fieldcontain">
+    <fieldset data-role="controlgroup">
+      <legend class= 'ui-input-text'>
+        <%= f.submit "Create" %>
+      </legend>
+      
+    </fieldset>
   </div>
-  <% end %>
 
-<%= render "devise/shared/links" %>
+<% end %>

@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   before_filter :check_for_resource
-  before_filter :authenticate_admin!, :only => [:all_orders,:destroy,:send]
+  before_filter :authenticate_admin!, :only => [:all_orders,:destroy,:send,:to_approve]
   before_filter :authenticate_for_approve!, :only => [:approve]
 
 private
@@ -108,7 +108,7 @@ public
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to customer_or_admin_orders_path, notice: 'Order was deleted.' }
+      format.html { redirect_to :back, notice: 'Order was deleted.' }
       format.json { head :no_content }
     end
   end
@@ -151,6 +151,11 @@ public
 
   def all_orders
     @orders = Order.all
+    render :index
+  end
+
+  def to_approve
+    @orders = @user.orders_assigned_for_approval.where(:approved => false)
     render :index
   end
 

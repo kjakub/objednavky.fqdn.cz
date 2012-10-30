@@ -1,12 +1,44 @@
 %h1
   List of of Customers
-%ul{"data-role" => "listview", "data-inset" => "true"}
+%table
+  %tr
+    %th
+      id
+    %th
+      email
+    %th
+      name
+    %th
+      company name
+    %th
+      operations
   - @customers.each do |customer|
-    %li
-      ="Costomer #"
-      = customer.id
-      %br
-      = customer.email
-      %div{"data-role" => "controlgroup", "data-type" => "horizontal"}
-        = link_to "destroy", customer_path(customer), :method => :delete, :data =>{:role => "button"}
-        = link_to "edit", edit_customer_path(customer), :data =>{:role => "button"}
+    %tr
+      %td
+        =customer.id
+      %td
+        =customer.email
+      %td
+        =customer.name + " " + customer.surname
+      %td
+        =customer.company_name
+      %td
+        %div{"data-role" => "controlgroup", "data-type" => "horizontal", "data-mini" => "true"}
+          = link_to "destroy", customer_path(customer), :method => :delete, :data =>{:role => "button"}
+          = link_to "edit", edit_customer_path(customer), :data =>{:role => "button"}
+
+
+
+
+
+
+/ %ul{"data-role" => "listview", "data-inset" => "true"}
+/   - @customers.each do |customer|
+/     %li
+/       ="Costomer #"
+/       = customer.id
+/       %br
+/       = customer.email
+/       %div{"data-role" => "controlgroup", "data-type" => "horizontal"}
+/         = link_to "destroy", customer_path(customer), :method => :delete, :data =>{:role => "button"}
+/         = link_to "edit", edit_customer_path(customer), :data =>{:role => "button"}

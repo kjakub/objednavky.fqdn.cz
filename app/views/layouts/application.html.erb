@@ -3,8 +3,7 @@
 <head>
   <title>Hanes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"> 
-  <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+
 
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
   // <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
@@ -14,13 +13,16 @@
     $(document).bind("mobileinit", function(){
       console.log('a');
       $.mobile.ajaxEnabled = false;
+      $.mobile.selectmenu.prototype.options.nativeMenu = false;
     });
   </script>
 
 
   <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  
 
 </head>
 <body>
@@ -39,25 +41,29 @@
           <h1><%= current_admin.email %>:admin</h1>
           <%= link_to 'New order', new_admin_order_path(current_admin) %>
           <%= link_to 'New Customer', new_customer_registration_path %>
+          <%= link_to 'New Admin', new_admin_registration_path %>
           <%= link_to 'Customers', customers_path %>
           <%= link_to 'All orders', all_orders_admin_orders_path(current_admin) %>
+          <%= link_to 'Orders to approve', to_approve_admin_orders_path(current_admin) %>
           <%= link_to 'Orders created by me', admin_orders_path(current_admin) %>
           <%= link_to 'Sign out', destroy_admin_session_path, :method => :delete %>
           
       <% else -%>
-          <%= link_to 'Sign up as Admin', new_admin_registration_path %>
+          
           <%= link_to 'Sign in as Admin', new_admin_session_path %>
 
-          <%= link_to 'Sign up as Customer', new_customer_registration_path %>
-          <%= link_to 'Sign in as Customer', new_customer_session_path %>
+<!--           <%= link_to 'Sign up as Customer', new_customer_registration_path %>
+          <%= link_to 'Sign in as Customer', new_customer_session_path %> -->
 
 
       <% end -%>
     </div>
-    <%- flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-    <%- end -%>
-    <%= yield %>
+    <div data-role="content">
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+      <%- end -%>
+      <%= yield %>
+    </div>
   </div>
 </body>
 </html>

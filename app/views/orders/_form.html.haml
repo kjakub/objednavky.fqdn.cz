@@ -1,16 +1,32 @@
-= semantic_form_for [user, order] do |f|
+= form_for [user, order] do |f|
   %div{"data-role" => "fieldcontain"}
-    = f.input :comment
-    - if admin_signed_in?
-      = f.input :admin_approver, :label => "Approver", :as => :select, :include_blank => true, :collection => Order.possibly_approvers, :input_html => { :disabled => admin_signed_in? ? false : true}
-      = f.input :customer, :as => :select, :include_blank => false, :collection => Hash[Customer.all.map{|c| [c.email,c.id]}]
-    
-    = f.input :delivery_mode, :as => :select, :include_blank => true, :collection => Order.delivery_modes, :input_html => { :disabled => admin_signed_in? ? false : true}
+    = f.label :comment
+    = f.text_field :comment
+  - if admin_signed_in?
+    %div{"data-role" => "fieldcontain"}
+      = f.label :admin_approver_id
+      = f.select :admin_approver_id,  Order.possibly_approvers, :include_blank => true, :disabled => admin_signed_in? ? false : true
+    %div{"data-role" => "fieldcontain"}
+      = f.label :customer_id
+      = f.select :customer_id, Hash[Customer.all.map{|c| [c.email,c.id]}], :include_blank => false
+  %div{"data-role" => "fieldcontain"}
+    = f.label :delivery_mode
+    = f.select :delivery_mode, Order.delivery_modes, {} ,:disabled => admin_signed_in? ? false : true
 
-    
-
-    = f.input :tracking_number, :input_html => { :readonly => admin_signed_in? ? false : true}
-    
-    - if admin_signed_in?
-      = f.input :enclosure, :as => :file
-    = f.buttons
+  %div{"data-role" => "fieldcontain"}
+    = f.label :tracking_number
+    = f.text_field :tracking_number, :disabled => admin_signed_in? ? false : true  
+  - if admin_signed_in?
+    %div{"data-role" => "fieldcontain"}
+      = f.label :enclosure, :class => 'ui-input-text'
+      = f.file_field :enclosure
+    %div{"data-role" => "fieldcontain"}
+      %fieldset{"data-role" => "controlgroup"}
+        %legend{:class => 'ui-input-text'}
+          Send notification
+        = f.check_box :send_notification
+        = f.label :send_notification, "send notification to approver"
+  %div{"data-role" => "fieldcontain"}
+    %fieldset{"data-role" => "controlgroup"}
+      %legend{:class => 'ui-input-text'}
+        = f.submit

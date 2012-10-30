@@ -1,0 +1,45 @@
+%div{"data-role" => "fieldcontain"}
+  = f.label :name 
+  = f.text_field :name 
+%div{"data-role" => "fieldcontain"}
+  = f.label :surname 
+  = f.text_field :surname 
+%div{"data-role" => "fieldcontain"}
+  = f.label :company_name 
+  = f.text_field :company_name 
+
+%hr
+%div{"data-role" => "fieldcontain"}
+  = f.label :billing_street 
+  = f.text_field :billing_street 
+%div{"data-role" => "fieldcontain"}
+  = f.label :billing_zip 
+  = f.text_field :billing_zip, :maxlength => 5 
+%div{"data-role" => "fieldcontain"}
+  = f.label :billing_city 
+  = f.text_field :billing_city 
+%div{"data-role" => "fieldcontain"}
+  = f.label :billing_country 
+  = f.text_field :billing_country 
+%div{"data-role" => "fieldcontain"}
+  %fieldset{"data-role" => "controlgroup"}
+    %legend{:class => 'ui-input-text'}
+      Delivery same?
+    = f.label :delivery_same 
+    = f.check_box :delivery_same 
+
+%hr
+%div{"data-role" => "fieldcontain"}
+  = f.label :delivery_street 
+  = f.text_field :delivery_street 
+%div{"data-role" => "fieldcontain"}
+  = f.label :delivery_zip 
+  = f.text_field :delivery_zip, :maxlength => 5 
+%div{"data-role" => "fieldcontain"}
+  = f.label :delivery_city 
+  = f.text_field :delivery_city 
+%div{"data-role" => "fieldcontain"}
+  = f.label :delivery_country 
+  = f.text_field :delivery_country 
+
+
