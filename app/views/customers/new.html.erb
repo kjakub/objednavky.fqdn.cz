@@ -14,10 +14,6 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </div>
-  <div data-role="fieldcontain">
-    <%= f.label :current_password %>
-    <%= f.password_field :current_password %>
-  </div>
 
     <%= render :partial => 'customer_info',:locals => {:f => f } %>
 
