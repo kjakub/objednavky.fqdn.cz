@@ -29,8 +29,6 @@ class Order < ActiveRecord::Base
   def approver
     if self.admin_approver_id == -1
       self.customer
-    elsif self.admin_approver_id == -2
-      self.admin
     else
       self.admin_approver
     end
@@ -38,7 +36,7 @@ class Order < ActiveRecord::Base
 
 protected
   def set_admin_if_me_option
-    self.admin_approver_id = self.admin if self.admin_approver_id == -2 #if me option is selected
+    self.admin_approver = self.admin if self.admin_approver_id == -2 #if me option is selected
   end
 
   def send_notification_to_approver

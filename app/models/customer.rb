@@ -20,4 +20,8 @@ private
     self.reset_authentication_token!
   end
 
+  def full_name
+    return self.try(:name) + " " + self.try(:surname) unless name.present? || surname.present?
+  end
+
 end

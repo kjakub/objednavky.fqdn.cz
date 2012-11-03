@@ -4,11 +4,12 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
   %body
     %h3
-      Dear #{@customer.email} ,
+      Dear #{@customer.full_name} ,
     - if @order.delivery_mode == "PPL"
       %p
         Your order have now been shipped via 
         = link_to "PPL/DHL","http://www.ppl.cz/"
+      %p  
         The tracking number for these items is: 
         = link_to @order.tracking_number, "http://www.ppl.cz/main2.aspx?cls=Package&idSearch="+@order.tracking_number if @order.tracking_number.present?
 
@@ -17,13 +18,17 @@
       %p
         Your order have now been shipped via 
         = link_to "FedEx","https://www.fedex.com/cz_english/"
+      %p
         The tracking number for these items is: 
         = link_to @order.tracking_number, "http://www.fedex.com/Tracking?tracknumbers="+@order.tracking_number if @order.tracking_number.present?
     %p
-      You can hit this 
-      = link_to "Link", customer_orders_url(@customer,:params => {:auth_token => @customer.authentication_token})
-      to access your orders.
+      You can access list of all orders and invoices in 
+      = link_to "ECOZZ shipping info", customer_orders_url(@customer,:params => {:auth_token => @customer.authentication_token})
     
 
     %p
-      Please allow some time for the status of the shipment to correctly display at the above address.
+      Thank you for your business.
+    %p
+      = link_to "www.ecozz.eu","http://www.ecozz.eu/"
+      |
+      = link_to "eu@ecozz.com","mailto:eu@ecozz.com"

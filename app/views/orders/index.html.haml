@@ -2,37 +2,40 @@
   List of orders
 %table
   %tr
+    -if admin_signed_in?
+      %th
+        Id
     %th
-      id
+      Customer
     %th
-      customer
-    %th
-      created
+      Created
     %th
       sent
+    -if admin_signed_in?
+      %th 
+        Approved
     %th
-      approved
-    %th
-      operations
+      
   - @orders.each do |order|
     %tr
-      %td
-        =order.id
+      -if admin_signed_in?
+        %td
+          =order.id
       %td
         =order.customer.email
       %td
         =order.created_at.to_date
       %td
         =order.sent
-      %td
-        =order.approved
+      -if admin_signed_in?
+        %td 
+          =order.approved
       %td
 
         %div{"data-role" => "controlgroup", "data-type" => "horizontal", "data-mini" => "true"}
           - if customer_signed_in?
             -if order.approver == current_customer
               = link_to "approve", approve_customer_order_path(current_customer,order), :method => :put, :data =>{:role => "button" } unless order.approved 
-            = link_to "edit", edit_customer_order_path(current_customer,order), :data =>{:role => "button" }
           
 
           - if admin_signed_in?
@@ -44,7 +47,7 @@
             = link_to "edit", edit_admin_order_path(current_admin,order), :data =>{:role => "button" }
             
           -if order.enclosure.present?
-            = link_to "download file", order.enclosure.url, :data =>{:role => "button" }
+            = link_to "Download invoice", order.enclosure.url, :data =>{:role => "button" }
 
 / %ul{"data-role" => "listview", "data-inset" => "true"}
 /   - @orders.each do |order|

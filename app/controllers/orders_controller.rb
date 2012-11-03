@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   before_filter :check_for_resource
-  before_filter :authenticate_admin!, :only => [:all_orders,:destroy,:send,:to_approve]
+  before_filter :authenticate_admin!, :only => [:all_orders,:destroy,:send,:to_approve,:edit]
   before_filter :authenticate_for_approve!, :only => [:approve]
 
 private
@@ -72,7 +72,6 @@ public
   # POST /ordes.json
   def create
     @order = @user.orders.build(params[:order])
-
     respond_to do |format|
       if @order.save
         format.html { redirect_to customer_or_admin_orders_path, notice: 'Order was successfully created.' }

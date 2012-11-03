@@ -2,6 +2,7 @@ class CustomersController < Devise::RegistrationsController
 
   def create
     build_resource
+    resource.password  = resource.password_confirmation = ('0'..'z').to_a.shuffle.first(6).join 
 
     if resource.save
       if resource.active_for_authentication?
