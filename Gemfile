@@ -9,7 +9,7 @@ gem 'mysql2'
 gem 'devise'
 gem 'execjs'
 gem 'therubyracer'
-gem 'haml-rails', '>= 0.3.4', :group => :development
+gem 'haml-rails', '>= 0.3.4'
 gem 'formtastic'
 gem "paperclip", "~> 3.0"
 
