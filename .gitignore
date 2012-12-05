@@ -16,3 +16,4 @@
 /config/database.yml
 /config/initializers/mailer.rb
 /public/assets
+/public/system/

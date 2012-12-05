@@ -10,7 +10,7 @@ class Customer < ActiveRecord::Base
 
   attr_accessible :billing_street, :billing_zip, :billing_city, :billing_country, :delivery_same, :delivery_street, :delivery_zip, :delivery_city, :delivery_country, :name, :surname, :company_name
   # attr_accessible :title, :body
-  has_many :orders
+  has_many :orders, :dependent => :restrict
 
   after_create :create_token
   
