@@ -63,7 +63,13 @@ class CrudCustomersController < ApplicationController
   # DELETE /customers/1.json
   def destroy
     @customer = Customer.find(params[:id])
-    @customer.destroy
+    
+
+    begin
+      @customer.destroy
+    rescue ActiveRecord::DeleteRestrictionError => e
+      flash[:alert] = "Cannot delete dependent orders exist"
+    end
 
     respond_to do |format|
       format.html { redirect_to customers_url }
