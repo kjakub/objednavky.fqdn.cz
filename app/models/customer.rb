@@ -25,7 +25,7 @@ private
 public
   
   def full_name
-    return self.try(:name) + " " + self.try(:surname) if name.present? || surname.present?
+    return self.try(:name) if name.present?
   end
 
 end
