@@ -1,34 +1,32 @@
 %h1
   List of of Customers
-%table
-  %tr
-    %th
-      id
-    %th
-      email
-    %th
-      name
-    %th
-      company name
-    %th
-      operations
-  - @customers.each do |customer|
+%table.table.table-stripped
+  %thead
     %tr
-      %td
-        =customer.id
-      %td
-        =customer.email
-      %td
-        =customer.name + " " + customer.surname
-      %td
-        =customer.company_name
-      %td
-        %div{"data-role" => "controlgroup", "data-type" => "horizontal", "data-mini" => "true"}
-          = link_to "destroy", customer_path(customer), :method => :delete, :data =>{:role => "button"}
-          = link_to "edit", edit_customer_path(customer), :data =>{:role => "button"}
-
-
-
+      %th
+        id
+      %th
+        email
+      %th
+        name
+      %th
+        company name
+      %th
+        operations
+  %tbody
+    - @customers.each do |customer|
+      %tr
+        %td
+          =customer.id
+        %td
+          =customer.email
+        %td
+          =customer.name + " " + customer.surname
+        %td
+          =customer.company_name
+        %td
+          = link_to "destroy", customer_path(customer), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger btn-mini'
+          = link_to "edit", edit_customer_path(customer), :class => 'btn btn-mini'
 
 
 

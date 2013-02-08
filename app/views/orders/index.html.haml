@@ -1,53 +1,67 @@
 %h1
   List of orders
-%table
-  %tr
-    -if admin_signed_in?
-      %th
-        Id
-    %th
-      Customer
-    %th
-      Created
-    %th
-      sent
-    -if admin_signed_in?
-      %th 
-        Approved
-    %th
-      
-  - @orders.each do |order|
+%table.table.table-stripped
+  %thead
     %tr
       -if admin_signed_in?
+        %th
+          Id
+      %th
+        Customer
+      %th
+        Created
+      %th
+        Sent
+      %th 
+        Approved
+  %tbody
+    - @orders.each do |order|
+      %tr
+        -if admin_signed_in?
+          %td
+            =order.id
         %td
-          =order.id
-      %td
-        =order.customer.email
-      %td
-        =order.created_at.to_date
-      %td
-        =order.sent
-      -if admin_signed_in?
+          =order.customer.email
+        %td
+          =order.created_at.to_date
+        %td
+          - if order.sent
+            %span.label.label-success Sent
+          - else
+            %span.label.label-warning Not sent
+
         %td 
-          =order.approved
-      %td
+          - if order.approved
+            %span.label.label-success Approved
+          - else
+            %span.label.label-warning Not approved
 
-        %div{"data-role" => "controlgroup", "data-type" => "horizontal", "data-mini" => "true"}
-          - if customer_signed_in?
-            -if order.approver == current_customer
-              = link_to "approve", approve_customer_order_path(current_customer,order), :method => :put, :data =>{:role => "button" } unless order.approved 
-          
 
-          - if admin_signed_in?
-            - if order.approver == current_admin
-              = link_to "approve", approve_admin_order_path(current_admin,order), :method => :put,:data =>{:role => "button" } unless order.approved 
-            - unless order.sent       
-              = link_to "send", sent_admin_order_path(current_admin,order), :method => :put, "data-role" => "button"
-            = link_to "delete", admin_order_path(current_admin,order), :method => :delete, :data =>{:role => "button" }
-            = link_to "edit", edit_admin_order_path(current_admin,order), :data =>{:role => "button" }
-            
+        %td
           -if order.enclosure.present?
-            = link_to "Download invoice", order.enclosure.url, :data =>{:role => "button" }
+            = link_to "Download invoice", order.enclosure.url, :class => 'btn btn-mini'        
+          
+          - if customer_signed_in?
+            
+            -if order.approver == current_customer
+              = link_to "approve", approve_customer_order_path(current_customer,order), :method => :put, :class => 'btn-mini btn',:confirm => 'Are you sure?' unless order.approved 
+          
+          - if admin_signed_in?
+            = link_to "delete", admin_order_path(current_admin,order), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger btn-mini'
+            = link_to "edit", edit_admin_order_path(current_admin,order), :class => 'btn btn-mini'
+            
+            - if order.approver == current_admin
+              = link_to "approve", approve_admin_order_path(current_admin,order), :method => :put,:class => 'btn btn-mini',:confirm => 'Are you sure?' unless order.approved 
+            
+            - unless order.sent       
+              = link_to "send", sent_admin_order_path(current_admin,order), :method => :put, :confirm => 'Are you sure?', :class => 'btn btn-mini'
+
+
+
+
+
+
+
 
 / %ul{"data-role" => "listview", "data-inset" => "true"}
 /   - @orders.each do |order|

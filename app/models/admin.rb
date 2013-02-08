@@ -11,4 +11,8 @@ class Admin < ActiveRecord::Base
   has_many :orders, :dependent => :restrict
   has_many :orders_assigned_for_approval, :class_name => 'Order', :foreign_key => :admin_approver_id, :dependent => :restrict
   accepts_nested_attributes_for :orders, :allow_destroy => true
+
+  def full_name
+    self.email
+  end
 end

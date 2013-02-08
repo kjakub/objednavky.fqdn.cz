@@ -11,6 +11,8 @@ class Order < ActiveRecord::Base
       :url => "/system/:attachment/:id/:filename"
 
   before_save :set_admin_if_me_option, :send_notification_to_approver
+
+  validates_presence_of :customer_id, :delivery_mode
   #class metoda
   def self.delivery_modes
     [ "FedEx" ,

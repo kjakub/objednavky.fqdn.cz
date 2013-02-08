@@ -13,15 +13,19 @@ class Customer < ActiveRecord::Base
   has_many :orders, :dependent => :restrict
 
   after_create :create_token
+
+  validates_presence_of :name, :surname
   
 private
   
   def create_token
     self.reset_authentication_token!
   end
+
 public
+  
   def full_name
-    return self.try(:name) + " " + self.try(:surname) unless name.present? || surname.present?
+    return self.try(:name) + " " + self.try(:surname) if name.present? || surname.present?
   end
 
 end

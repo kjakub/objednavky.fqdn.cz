@@ -1,45 +1,69 @@
-%div{"data-role" => "fieldcontain"}
-  = f.label :name 
-  = f.text_field :name 
-%div{"data-role" => "fieldcontain"}
-  = f.label :surname 
-  = f.text_field :surname 
-%div{"data-role" => "fieldcontain"}
-  = f.label :company_name 
-  = f.text_field :company_name 
+= f.input :name
+= f.input :surname
+= f.input :company_name
+/ %div.control-group
+/   = f.label :name, :class => 'control-label'
+/   %div.controls
+/     = f.text_field :name 
+/ %div.control-group
+/   = f.label :surname, :class => 'control-label'
+/   %div.controls
+/     = f.text_field :surname 
+/ %div.control-group
+/   = f.label :company_name, :class => 'control-label'
+/   %div.controls
+/     = f.text_field :company_name 
 
 %hr
-%div{"data-role" => "fieldcontain"}
-  = f.label :billing_street 
-  = f.text_field :billing_street 
-%div{"data-role" => "fieldcontain"}
-  = f.label :billing_zip 
-  = f.text_field :billing_zip, :maxlength => 5 
-%div{"data-role" => "fieldcontain"}
-  = f.label :billing_city 
-  = f.text_field :billing_city 
-%div{"data-role" => "fieldcontain"}
-  = f.label :billing_country 
-  = f.text_field :billing_country 
-%div{"data-role" => "fieldcontain"}
-  %fieldset{"data-role" => "controlgroup"}
-    %legend{:class => 'ui-input-text'}
-      Delivery same?
-    = f.label :delivery_same 
-    = f.check_box :delivery_same 
+= f.input :billing_street
+= f.input :billing_zip
+= f.input :billing_city
+= f.input :billing_country, :as => :string
+= f.input :delivery_same, :as => :boolean
 
 %hr
-%div{"data-role" => "fieldcontain"}
-  = f.label :delivery_street 
-  = f.text_field :delivery_street 
-%div{"data-role" => "fieldcontain"}
-  = f.label :delivery_zip 
-  = f.text_field :delivery_zip, :maxlength => 5 
-%div{"data-role" => "fieldcontain"}
-  = f.label :delivery_city 
-  = f.text_field :delivery_city 
-%div{"data-role" => "fieldcontain"}
-  = f.label :delivery_country 
-  = f.text_field :delivery_country 
+= f.input :delivery_street
+= f.input :delivery_zip
+= f.input :delivery_city
+= f.input :delivery_country, :as => :string
+
+/ %div.control-group
+/   = f.label :billing_street, :class => 'control-label'
+/   %div.controls 
+/     = f.text_field :billing_street 
+/ %div.control-group
+/   = f.label :billing_zip, :class => 'control-label' 
+/   %div.controls 
+/     = f.text_field :billing_zip, :maxlength => 5 
+/ %div.control-group
+/   = f.label :billing_city, :class => 'control-label'
+/   %div.controls  
+/     = f.text_field :billing_city 
+/ %div.control-group
+/   = f.label :billing_country, :class => 'control-label'
+/   %div.controls 
+/     = f.text_field :billing_country 
+/ %div.control-group
+/   = f.label :delivery_same, :class => 'control-label'
+/   %div.controls 
+/     = f.check_box :delivery_same 
+
+/ %hr
+/ %div.control-group
+/   = f.label :delivery_street, :class => 'control-label'
+/   %div.controls
+/     = f.text_field :delivery_street 
+/ %div.control-group
+/   = f.label :delivery_zip, :class => 'control-label'
+/   %div.controls
+/     = f.text_field :delivery_zip, :maxlength => 5 
+/ %div.control-group
+/   = f.label :delivery_city, :class => 'control-label'
+/   %div.controls
+/     = f.text_field :delivery_city 
+/ %div.control-group
+/   = f.label :delivery_country, :class => 'control-label'
+/   %div.controls
+/     = f.text_field :delivery_country 
 
 

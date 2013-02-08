@@ -1,29 +1,43 @@
-= form_for [user, order] do |f|
-  %div{"data-role" => "fieldcontain"}
-    = f.label :customer_id
-    = f.select :customer_id, Hash[Customer.all.map{|c| [c.email,c.id]}], :include_blank => false
-  %div{"data-role" => "fieldcontain"}
-    = f.label :delivery_mode
-    = f.select :delivery_mode, Order.delivery_modes, {} ,:disabled => admin_signed_in? ? false : true
-  %div{"data-role" => "fieldcontain"}
-    = f.label :tracking_number
-    = f.text_field :tracking_number, :disabled => admin_signed_in? ? false : true  
-  %div{"data-role" => "fieldcontain"}
-    = f.label :comment
-    = f.text_field :comment
-    %div{"data-role" => "fieldcontain"}
-      = f.label :enclosure, "Add file",:class => 'ui-input-text'
-      = f.file_field :enclosure
-  %div{"data-role" => "fieldcontain"}
-    = f.label :admin_approver_id
-    = f.select :admin_approver_id,  Order.possibly_approvers, :include_blank => true, :disabled => admin_signed_in? ? false : true
-  %div{"data-role" => "fieldcontain"}
-    %fieldset{"data-role" => "controlgroup"}
-      %legend{:class => 'ui-input-text'}
-        Send notification
-      = f.check_box :send_notification
-      = f.label :send_notification, "send notification to approver"
-  %div{"data-role" => "fieldcontain"}
-    %fieldset{"data-role" => "controlgroup"}
-      %legend{:class => 'ui-input-text'}
-        = f.submit
+= simple_form_for([user, order], {:html => { :class => 'form-horizontal'}}) do |f|
+  %fieldset
+    = f.input :customer_id, :collection => Hash[Customer.all.map{|c| [c.email,c.id]}], :include_blank => true
+    = f.input :delivery_mode, :collection => Order.delivery_modes, :disabled => admin_signed_in? ? false : true, :include_blank => false
+    = f.input :tracking_number
+    = f.input :comment, input_html: { style: 'height:100px' }
+    = f.input :enclosure, :as => :file,:label => "Add file"
+    = f.input :admin_approver_id,  :collection => Order.possibly_approvers, :include_blank => true, :disabled => admin_signed_in? ? false : true,:label => 'Approver'
+    = f.input :send_notification, :label => 'Send notify to approver',:as => :boolean
+
+    = f.submit :class => 'btn btn-primary'
+
+    / %div.control-group
+    /   = f.label :customer_id, :class => 'control-label'
+    /   %div.controls
+    /     = f.select :customer_id, Hash[Customer.all.map{|c| [c.email,c.id]}], :include_blank => false
+    / %div.control-group
+    /   = f.label :delivery_mode, :class => 'control-label'
+    /   %div.controls
+    /     = f.select :delivery_mode, Order.delivery_modes, {} ,:disabled => admin_signed_in? ? false : true
+    / %div.control-group
+    /   = f.label :tracking_number, :class => 'control-label'
+    /   %div.controls
+    /     = f.text_field :tracking_number, :disabled => admin_signed_in? ? false : true  
+    / %div.control-group
+    /   = f.label :comment, :class => 'control-label'
+    /   %div.controls
+    /     = f.text_area :comment, :style => 'height:100px'
+    / %div.control-group
+    /   = f.label :enclosure, "Add file", :class => 'control-label'
+    /   %div.controls
+    /     = f.file_field :enclosure
+    / %div.control-group
+    /   = f.label :admin_approver_id, :class => 'control-label'
+    /   %div.controls
+    /     = f.select :admin_approver_id,  Order.possibly_approvers, :include_blank => true, :disabled => admin_signed_in? ? false : true
+    / %div.control-group
+    /   = f.label :send_notification, "send notification to approver", :class => 'control-label'
+    /   %div.controls
+    /     = f.check_box :send_notification
+    / %div.form-actions
+    /   = f.submit :class => 'btn btn-primary'
+        
